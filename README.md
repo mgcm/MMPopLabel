@@ -8,7 +8,60 @@
 
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
 
+To use it in your view controller, with styles and buttons:
+
+```objective-c
+// set appearance style
+[[MMPopLabel appearance] setLabelColor:[UIColor blueColor];
+[[MMPopLabel appearance] setLabelTextColor:[UIColor whiteColor]];
+[[MMPopLabel appearance] setLabelTextHighlightColor:[UIColor greenColor]];
+[[MMPopLabel appearance] setLabelFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f]];
+[[MMPopLabel appearance] setButtonFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0f]];
+
+// _label is a view controller property
+_label = [MMPopLabel popLabelWithText:
+          @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."];
+
+// add a couple of buttons
+UIButton *skipButton = [[UIButton alloc] initWithFrame:CGRectZero];
+[skipButton setTitle:NSLocalizedString(@"Skip Tutorial", @"Skip Tutorial Button") forState:UIControlStateNormal];
+[_label addButton:skipButton];
+
+UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectZero];
+[okButton setTitle:NSLocalizedString(@"OK, Got It!", @"Dismiss Button") forState:UIControlStateNormal];
+[_label addButton:okButton];
+
+// add it to your view
+[self.view addSubview:_label];
+```
+
+To show the label, just add this code to a button action or some other type of event, passing in the view you wish to point to:
+
+```objective-c
+- (IBAction)showLabel:(id)sender
+{
+	UIView *view = (UIView *)sender;
+    [_label popAtView:view];
+}
+```
+
+To receive the label events, just set your view controller as it's delegate and implement the MMPopLabelDelegate protocol:
+
+```objective-c
+- (void)dismissedPopLabel:(MMPopLabel *)popLabel;
+- (void)didPressButtonForPopLabel:(MMPopLabel *)popLabel atIndex:(NSInteger)index;
+```
+
+## Screenshots
+
+[https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-1.png]
+[https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-2.png]
+[https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-3.png]
+
 ## Requirements
+
+* iOS 7.0+ and XCode 5.1+
 
 ## Installation
 

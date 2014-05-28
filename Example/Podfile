@@ -1,6 +1,6 @@
 platform :ios, '7.0'
 
-target "Demo" do
+target "MMPopLabelDemo" do
   pod "MMPopLabel", :path => "../"
 end
 

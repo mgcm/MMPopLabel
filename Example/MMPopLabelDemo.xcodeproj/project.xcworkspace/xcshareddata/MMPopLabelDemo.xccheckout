@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E0409D11-8B33-4B7C-9A0A-BFDF9A8B9E72</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MMPopLabelDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7F1214F5-E122-499B-B1ED-43727EDC081B</key>
+		<string>ssh://github.com/mgcm/MMPopLabel.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Example/MMPopLabelDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7F1214F5-E122-499B-B1ED-43727EDC081B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/mgcm/MMPopLabel.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7F1214F5-E122-499B-B1ED-43727EDC081B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7F1214F5-E122-499B-B1ED-43727EDC081B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MMPopLabel</string>
+		</dict>
+	</array>
+</dict>
+</plist>

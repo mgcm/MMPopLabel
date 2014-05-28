@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "MMPopLabel"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "MMPopLabel is a tooltip control for iOS, with optional buttons"
   s.description      = <<-DESC
 MMPopLabel is a tooltip control for iOS, useful for tutorials.

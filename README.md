@@ -55,9 +55,9 @@ To receive the label events, just set your view controller as it's delegate and 
 
 ## Screenshots
 
-[https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-1.png]
-[https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-2.png]
-[https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-3.png]
+![Screen #1](https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-1.png)
+![Screen #2](https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-2.png)
+![Screen #3](https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-3.png)
 
 ## Requirements
 

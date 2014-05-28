@@ -3,22 +3,24 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "MMPopLabel is a tooltip control for iOS, with optional buttons"
   s.description      = <<-DESC
-                       An optional longer description of MMPopLabel
+MMPopLabel is a tooltip control for iOS, useful for tutorials.
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+It supports:
+
+* optional buttons
+* appearance proxy for styling
                        DESC
   s.homepage         = "http://github.com/mgcm/MMPopLabel"
-  s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.screenshots      = "https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-1.png", "https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-2.png", "https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-3.png"
   s.license          = 'MIT'
   s.author           = { "mgcm" => "miltonmoura@gmail.com" }
-  s.source           = { :git => "http://EXAMPLE/NAME.git", :tag => s.version.to_s }
+  s.source           = { :git => "git@github.com:mgcm/MMPopLabel.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.ios.deployment_target = '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Classes'
+  s.source_files = 'Classes/**/*.m'
 
   s.ios.exclude_files = 'Classes/osx'
   s.osx.exclude_files = 'Classes/ios'

@@ -14,7 +14,7 @@ It supports:
   s.screenshots      = "https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-1.png", "https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-2.png", "https://raw.githubusercontent.com/mgcm/MMPopLabel/master/Assets/MMPopLabel-3.png"
   s.license          = 'MIT'
   s.author           = { "mgcm" => "miltonmoura@gmail.com" }
-  s.source           = { :git => "git@github.com:mgcm/MMPopLabel.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/mgcm/MMPopLabel.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.ios.deployment_target = '7.0'

@@ -181,25 +181,27 @@ typedef enum : NSUInteger {
 - (void)popAtView:(UIView *)view
 {
     if (self.hidden == NO) return;
-
+    
     _arrowType = MMPopLabelTopArrow;
-
+    
     CGPoint position = CGPointMake(view.center.x, view.center.y + view.frame.size.height / 2 + kMMPopLabelViewPadding);
+    position = [view.superview convertPoint:position toView:self.superview];
     self.center = position;
-    if (position.x + (self.frame.size.width / 2) > [UIScreen mainScreen].applicationFrame.size.width) {
-        CGFloat diff = (self.frame.size.width + self.frame.origin.x - [UIScreen mainScreen].applicationFrame.size.width) + kMMPopLabelSidePadding;
-        position = CGPointMake(view.center.x - diff, position.y);
-    } else if (self.frame.origin.x < 0) {
-        CGFloat diff = - self.frame.origin.x + kMMPopLabelSidePadding;
-        position = CGPointMake(view.center.x + diff, view.center.y + view.frame.size.height / 2);
+    CGRect absoluteFrame = [self.superview convertRect:self.frame toView:nil];
+    if (CGRectGetMaxX(absoluteFrame) > [UIScreen mainScreen].applicationFrame.size.width) {
+        //        CGFloat diff = (CGRectGetMaxX(absoluteFrame) - [UIScreen mainScreen].applicationFrame.size.width) + kMMPopLabelSidePadding;
+        position = CGPointMake([UIScreen mainScreen].applicationFrame.size.width - CGRectGetWidth(self.frame) / 2 - kMMPopLabelSidePadding, position.y);
+    } else if (absoluteFrame.origin.x < 0) {
+        CGFloat diff = - absoluteFrame.origin.x + kMMPopLabelSidePadding;
+        position = CGPointMake(position.x + diff, position.y - kMMPopLabelViewPadding);
     }
     
-    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) {
+    if (CGRectGetMaxY(absoluteFrame) > [UIScreen mainScreen].applicationFrame.size.height) {
         _arrowType = MMPopLabelBottomArrow;
         position = CGPointMake(position.x,
-                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding));
+                               CGRectGetMinY([view.superview convertRect:view.frame toView:self.superview]) - self.frame.size.height - kMMPopLabelViewPadding);
     }
-
+    
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);
     self.center = position;
     
@@ -209,7 +211,7 @@ typedef enum : NSUInteger {
     self.alpha = 0.0f;
     self.hidden = NO;
     
-    _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);
+    _viewCenter = [view.superview convertPoint:CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y) toView:self.superview];
     [self setNeedsDisplay];
     
     self.transform = CGAffineTransformMakeScale(0, 0);

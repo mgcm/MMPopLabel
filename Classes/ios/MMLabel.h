@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MMLabel : UILabel
-
+@property NSString* title;
+@property NSString* message;
 @end

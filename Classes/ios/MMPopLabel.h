@@ -22,10 +22,11 @@
 @property (nonatomic, retain) UIColor *labelTextHighlightColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, retain) UIFont *labelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, retain) UIFont *buttonFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, retain) UIFont *titleFont UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, weak) id<MMPopLabelDelegate> delegate;
 
-+ (MMPopLabel *)popLabelWithText:(NSString *)text;
++ (MMPopLabel *)popLabelWithTitle:(NSString *)title andMessage:(NSString *)message;
 - (void)addButton:(UIButton *)button;
 - (void)popAtView:(UIView *)view;
 - (void)dismiss;

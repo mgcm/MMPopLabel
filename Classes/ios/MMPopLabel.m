@@ -52,15 +52,14 @@ typedef enum : NSUInteger {
 @implementation MMPopLabel
 
 
-+ (MMPopLabel *)popLabelWithText:(NSString *)text
++ (MMPopLabel *)popLabelWithTitle:(NSString *)title andMessage:(NSString *)message
 {
-    MMPopLabel *popLabel = [[MMPopLabel alloc] initWithText:text];
-
+	MMPopLabel *popLabel = [[MMPopLabel alloc] initWithTitle:title andMessage:message];
     return popLabel;
 }
 
 
-- (id)initWithText:(NSString *)text
+- (id)initWithTitle:(NSString *)title andMessage:(NSString *)message
 {
     if (self = [super initWithFrame:CGRectZero])
     {
@@ -74,10 +73,11 @@ typedef enum : NSUInteger {
         } else {
             self.tipSize = 12;
         }
-
+		
         self.label = [[MMLabel alloc] initWithFrame:CGRectZero];
         self.label.textAlignment = NSTextAlignmentCenter;
-        self.label.text = text;
+        self.label.message = message;
+		self.label.title = [title stringByAppendingString:@"\n\n"];
         self.label.backgroundColor = [UIColor clearColor];
         self.label.numberOfLines = 0;
         
@@ -105,17 +105,26 @@ typedef enum : NSUInteger {
     if (!_labelFont) {
         _labelFont = [UIFont systemFontOfSize:_tipSize];
     }
-    
+	
+	if (!_titleFont) {
+		_titleFont = [UIFont systemFontOfSize:_tipSize + 2.0];
+	}
+	
     self.label.textColor = _labelTextColor;
-    self.label.font = _labelFont;
+    //self.label.font = _labelFont;
 
     /* resize label and view */
     CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.80f;
     CGFloat maxHeight = [UIScreen mainScreen].applicationFrame.size.height * 0.80f;
 
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:self.label.text
+	NSMutableAttributedString *finalText = [[NSMutableAttributedString alloc] initWithString:self.label.title
+																		 attributes:@{NSFontAttributeName:_titleFont}];
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:self.label.message
                                                                          attributes:@{NSFontAttributeName:_labelFont}];
-    CGRect rect = [attributedText boundingRectWithSize:(CGSize){maxWidth, CGFLOAT_MAX}
+	[finalText appendAttributedString:attributedText];
+	self.label.attributedText = finalText;
+	
+    CGRect rect = [finalText boundingRectWithSize:(CGSize){maxWidth, CGFLOAT_MAX}
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                                context:nil];
     CGFloat minWidth = MAX(rect.size.width, 180);

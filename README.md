@@ -12,7 +12,7 @@ To use it in your view controller, with styles and buttons:
 
 ```objective-c
 // set appearance style
-[[MMPopLabel appearance] setLabelColor:[UIColor blueColor];
+[[MMPopLabel appearance] setLabelColor:[UIColor blueColor]];
 [[MMPopLabel appearance] setLabelTextColor:[UIColor whiteColor]];
 [[MMPopLabel appearance] setLabelTextHighlightColor:[UIColor greenColor]];
 [[MMPopLabel appearance] setLabelFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f]];

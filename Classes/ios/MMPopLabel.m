@@ -186,7 +186,9 @@ animateTargetView:(BOOL)animateTargetView
 
     _arrowType = MMPopLabelTopArrow;
 
-    CGPoint position = CGPointMake(view.center.x, view.center.y + view.frame.size.height / 2 + kMMPopLabelViewPadding);
+    CGRect translatedFrame = [self.superview convertRect:view.frame fromView:view.superview];
+    CGPoint center = CGPointMake(CGRectGetMidX(translatedFrame), CGRectGetMidY(translatedFrame));
+    CGPoint position = CGPointMake(center.x, center.y + translatedFrame.size.height / 2 + kMMPopLabelViewPadding);
     self.center = position;
     if (position.x + (self.frame.size.width / 2) > [UIScreen mainScreen].applicationFrame.size.width) {
         CGFloat diff = (self.frame.size.width + self.frame.origin.x - [UIScreen mainScreen].applicationFrame.size.width) + kMMPopLabelSidePadding;
@@ -211,7 +213,7 @@ animateTargetView:(BOOL)animateTargetView
     self.alpha = 0.0f;
     self.hidden = NO;
     
-    _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);
+    _viewCenter = CGPointMake(center.x - self.frame.origin.x - 8, center.y);
     [self setNeedsDisplay];
     
     if (animatePopLabel || animateTargetView) {

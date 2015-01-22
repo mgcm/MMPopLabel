@@ -19,9 +19,14 @@ To use it in your view controller, with styles and buttons:
 [[MMPopLabel appearance] setButtonFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0f]];
 
 // _label is a view controller property
+
 _label = [MMPopLabel popLabelWithText:
           @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
           "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."];
+
+// animation can be disabled using the animate parameter
+
+_label = [MMPopLabel popLabelWithText: @"Lorem Ipsum..." animate: NO];
 
 // add a couple of buttons
 UIButton *skipButton = [[UIButton alloc] initWithFrame:CGRectZero];

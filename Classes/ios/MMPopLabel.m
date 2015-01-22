@@ -55,7 +55,18 @@ typedef enum : NSUInteger {
 + (MMPopLabel *)popLabelWithText:(NSString *)text
 {
     MMPopLabel *popLabel = [[MMPopLabel alloc] initWithText:text];
+    
+    popLabel.animate = YES;
 
+    return popLabel;
+}
+
++ (MMPopLabel *)popLabelWithText:(NSString *)text animate:(BOOL)animate
+{
+    MMPopLabel *popLabel = [[MMPopLabel alloc] initWithText:text];
+    
+    popLabel.animate = animate;
+    
     return popLabel;
 }
 
@@ -199,7 +210,7 @@ typedef enum : NSUInteger {
         position = CGPointMake(position.x,
                                [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding));
     }
-
+    
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);
     self.center = position;
     
@@ -212,26 +223,38 @@ typedef enum : NSUInteger {
     _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);
     [self setNeedsDisplay];
     
-    self.transform = CGAffineTransformMakeScale(0, 0);
-    view.transform = CGAffineTransformMakeScale(0, 0);
-    [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
-        self.center = centerPoint;
-        self.alpha = 1.0f;
-        self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-        view.transform = CGAffineTransformMakeScale(1.2, 1.2);
-    } completion:^(BOOL finished) {
-        [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-            self.transform = CGAffineTransformMakeScale(0.9, 0.9);
-            view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    if (self.animate)
+    {
+        self.transform = CGAffineTransformMakeScale(0, 0);
+        view.transform = CGAffineTransformMakeScale(0, 0);
+        [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
+            self.center = centerPoint;
+            self.alpha = 1.0f;
+            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            view.transform = CGAffineTransformMakeScale(1.2, 1.2);
         } completion:^(BOOL finished) {
             [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-                self.transform = CGAffineTransformMakeScale(1, 1);
-                view.transform = CGAffineTransformMakeScale(1, 1);
+                self.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             } completion:^(BOOL finished) {
-                // completion block empty?
+                [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
+                    self.transform = CGAffineTransformMakeScale(1, 1);
+                    view.transform = CGAffineTransformMakeScale(1, 1);
+                } completion:^(BOOL finished) {
+                    // completion block empty?
+                }];
             }];
         }];
-    }];
+    }
+    else
+    {
+        self.center = centerPoint;
+        [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
+            self.alpha = 1.0f;
+        } completion:^(BOOL finished) {
+            // completion block empty?
+        }];
+    }
 }
 
 

@@ -179,12 +179,16 @@ typedef enum : NSUInteger {
 
 
 - (void)popAtView:(UIView *)view
+  animatePopLabel:(BOOL)animatePopLabel
+animateTargetView:(BOOL)animateTargetView
 {
     if (self.hidden == NO) return;
 
     _arrowType = MMPopLabelTopArrow;
 
-    CGPoint position = CGPointMake(view.center.x, view.center.y + view.frame.size.height / 2 + kMMPopLabelViewPadding);
+    CGRect translatedFrame = [self.superview convertRect:view.frame fromView:view.superview];
+    CGPoint center = CGPointMake(CGRectGetMidX(translatedFrame), CGRectGetMidY(translatedFrame));
+    CGPoint position = CGPointMake(center.x, center.y + translatedFrame.size.height / 2 + kMMPopLabelViewPadding);
     self.center = position;
     if (position.x + (self.frame.size.width / 2) > [UIScreen mainScreen].applicationFrame.size.width) {
         CGFloat diff = (self.frame.size.width + self.frame.origin.x - [UIScreen mainScreen].applicationFrame.size.width) + kMMPopLabelSidePadding;
@@ -194,10 +198,11 @@ typedef enum : NSUInteger {
         position = CGPointMake(view.center.x + diff, view.center.y + view.frame.size.height / 2);
     }
     
-    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) {
-        _arrowType = MMPopLabelBottomArrow;
-        position = CGPointMake(position.x,
-                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding));
+    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height
+        || self.forceArrowDown) {
+      _arrowType = MMPopLabelBottomArrow;
+      position = CGPointMake(position.x,
+                             translatedFrame.origin.y - (self.frame.size.height + kMMPopLabelViewPadding));
     }
 
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);
@@ -209,29 +214,34 @@ typedef enum : NSUInteger {
     self.alpha = 0.0f;
     self.hidden = NO;
     
-    _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);
+    _viewCenter = CGPointMake(center.x - self.frame.origin.x - 8, center.y);
     [self setNeedsDisplay];
     
-    self.transform = CGAffineTransformMakeScale(0, 0);
-    view.transform = CGAffineTransformMakeScale(0, 0);
-    [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
-        self.center = centerPoint;
-        self.alpha = 1.0f;
-        self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-        view.transform = CGAffineTransformMakeScale(1.2, 1.2);
-    } completion:^(BOOL finished) {
-        [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-            self.transform = CGAffineTransformMakeScale(0.9, 0.9);
-            view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    if (animatePopLabel || animateTargetView) {
+        if (animatePopLabel) self.transform = CGAffineTransformMakeScale(0, 0);
+        if (animateTargetView) view.transform = CGAffineTransformMakeScale(0, 0);
+        [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
+            self.center = centerPoint;
+            self.alpha = 1.0f;
+            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            if (animateTargetView) view.transform = CGAffineTransformMakeScale(1.2, 1.2);
         } completion:^(BOOL finished) {
             [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-                self.transform = CGAffineTransformMakeScale(1, 1);
-                view.transform = CGAffineTransformMakeScale(1, 1);
+                if (animatePopLabel) self.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                if (animateTargetView) view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             } completion:^(BOOL finished) {
-                // completion block empty?
+                [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
+                    if (animatePopLabel) self.transform = CGAffineTransformMakeScale(1, 1);
+                    if (animateTargetView) view.transform = CGAffineTransformMakeScale(1, 1);
+                } completion:^(BOOL finished) {
+                    // completion block empty?
+                }];
             }];
         }];
-    }];
+    } else {
+      self.center = centerPoint;
+      self.alpha = 1.0;
+    }
 }
 
 

@@ -198,10 +198,11 @@ animateTargetView:(BOOL)animateTargetView
         position = CGPointMake(view.center.x + diff, view.center.y + view.frame.size.height / 2);
     }
     
-    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) {
-        _arrowType = MMPopLabelBottomArrow;
-        position = CGPointMake(position.x,
-                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding));
+    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height
+        || self.forceArrowDown) {
+      _arrowType = MMPopLabelBottomArrow;
+      position = CGPointMake(position.x,
+                             translatedFrame.origin.y - (self.frame.size.height + kMMPopLabelViewPadding));
     }
 
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);

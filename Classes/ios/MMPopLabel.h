@@ -22,6 +22,7 @@
 @property (nonatomic, retain) UIColor *labelTextHighlightColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, retain) UIFont *labelFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, retain) UIFont *buttonFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic) BOOL forceArrowDown;
 
 @property (nonatomic, weak) id<MMPopLabelDelegate> delegate;
 

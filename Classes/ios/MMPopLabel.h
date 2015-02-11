@@ -27,7 +27,14 @@
 
 + (MMPopLabel *)popLabelWithText:(NSString *)text;
 - (void)addButton:(UIButton *)button;
+
+- (void)popAtView:(UIView *)view animated: (BOOL) animated;
+
+//Keeping this method without animated boolean for retrocompatibility
+//will use animations by default
 - (void)popAtView:(UIView *)view;
+
+
 - (void)dismiss;
 
 

@@ -308,10 +308,10 @@ typedef enum : NSUInteger {
     }
     CGContextRotateCTM(context, -45 * M_PI / 180);
     
-    UIBezierPath* tipPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)];
-    [_labelColor setFill];
-    [tipPath fill];
-    
+//    UIBezierPath* tipPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)];
+//    [_labelColor setFill];
+//    [tipPath fill];
+
     CGContextRestoreGState(context);
     
     //// ViewBackground Drawing

@@ -25,6 +25,8 @@
 
 @property (nonatomic, weak) id<MMPopLabelDelegate> delegate;
 
++ (MMPopLabel *)popLabelWithAttributedString:(NSAttributedString *)attributedString;
+
 + (MMPopLabel *)popLabelWithText:(NSString *)text;
 - (void)addButton:(UIButton *)button;
 

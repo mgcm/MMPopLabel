@@ -51,6 +51,13 @@ typedef enum : NSUInteger {
 
 @implementation MMPopLabel
 
++ (MMPopLabel *)popLabelWithAttributedString:(NSAttributedString *)attributedString {
+    MMPopLabel *popLabel = [[MMPopLabel alloc] initWithAttributedString: attributedString];
+
+
+    return popLabel;
+
+}
 
 + (MMPopLabel *)popLabelWithText:(NSString *)text
 {
@@ -59,6 +66,30 @@ typedef enum : NSUInteger {
     return popLabel;
 }
 
+- (instancetype)initWithAttributedString: (NSAttributedString *)attributedString {
+    if (self = [super initWithFrame:CGRectZero])
+    {
+        self.buttons = [@[] mutableCopy];
+
+        self.backgroundColor = [UIColor clearColor];
+        self.hidden = YES;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            self.tipSize = 24;
+        } else {
+            self.tipSize = 12;
+        }
+
+        self.label = [[MMLabel alloc] initWithFrame:CGRectZero];
+        self.label.textAlignment = NSTextAlignmentCenter;
+        self.label.attributedText = attributedString;
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.numberOfLines = 0;
+
+        [self addSubview:self.label];
+    }
+    return self;
+}
 
 - (id)initWithText:(NSString *)text
 {

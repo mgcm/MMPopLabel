@@ -315,6 +315,8 @@ typedef enum : NSUInteger {
     [tipPath addLineToPoint:CGPointMake( 0, 0)];
     [tipPath closePath];
     
+    [_labelColor setFill];
+    [tipPath fill];
     CGContextRestoreGState(context);
     
     //// ViewBackground Drawing

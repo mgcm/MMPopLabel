@@ -51,6 +51,13 @@ typedef enum : NSUInteger {
 
 @implementation MMPopLabel
 
++ (MMPopLabel *)popLabelWithAttributedString:(NSAttributedString *)attributedString {
+    MMPopLabel *popLabel = [[MMPopLabel alloc] initWithAttributedString: attributedString];
+
+
+    return popLabel;
+
+}
 
 + (MMPopLabel *)popLabelWithText:(NSString *)text
 {
@@ -59,6 +66,30 @@ typedef enum : NSUInteger {
     return popLabel;
 }
 
+- (instancetype)initWithAttributedString: (NSAttributedString *)attributedString {
+    if (self = [super initWithFrame:CGRectZero])
+    {
+        self.buttons = [@[] mutableCopy];
+
+        self.backgroundColor = [UIColor clearColor];
+        self.hidden = YES;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            self.tipSize = 24;
+        } else {
+            self.tipSize = 12;
+        }
+
+        self.label = [[MMLabel alloc] initWithFrame:CGRectZero];
+        self.label.textAlignment = NSTextAlignmentCenter;
+        self.label.attributedText = attributedString;
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.numberOfLines = 0;
+
+        [self addSubview:self.label];
+    }
+    return self;
+}
 
 - (id)initWithText:(NSString *)text
 {
@@ -177,8 +208,11 @@ typedef enum : NSUInteger {
     [self setupAppearance];
 }
 
+- (void)popAtView:(UIView *)view {
+    [self popAtView:view animated:YES];
+}
 
-- (void)popAtView:(UIView *)view
+- (void)popAtView:(UIView *)view animated: (BOOL) animated
 {
     if (self.hidden == NO) return;
 
@@ -212,26 +246,32 @@ typedef enum : NSUInteger {
     _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);
     [self setNeedsDisplay];
     
-    self.transform = CGAffineTransformMakeScale(0, 0);
-    view.transform = CGAffineTransformMakeScale(0, 0);
-    [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
-        self.center = centerPoint;
-        self.alpha = 1.0f;
-        self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-        view.transform = CGAffineTransformMakeScale(1.2, 1.2);
-    } completion:^(BOOL finished) {
-        [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-            self.transform = CGAffineTransformMakeScale(0.9, 0.9);
-            view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+    if (animated) {
+        self.transform = CGAffineTransformMakeScale(0, 0);
+        view.transform = CGAffineTransformMakeScale(0, 0);
+
+        [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
+            self.center = centerPoint;
+            self.alpha = 1.0f;
+            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            view.transform = CGAffineTransformMakeScale(1.2, 1.2);
         } completion:^(BOOL finished) {
             [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-                self.transform = CGAffineTransformMakeScale(1, 1);
-                view.transform = CGAffineTransformMakeScale(1, 1);
+                self.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             } completion:^(BOOL finished) {
-                // completion block empty?
+                [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
+                    self.transform = CGAffineTransformMakeScale(1, 1);
+                    view.transform = CGAffineTransformMakeScale(1, 1);
+                } completion:^(BOOL finished) {
+                    // completion block empty?
+                }];
             }];
         }];
-    }];
+    } else {
+        self.center = centerPoint;
+        self.alpha = 1.0f;
+    }
 }
 
 
@@ -268,10 +308,15 @@ typedef enum : NSUInteger {
     }
     CGContextRotateCTM(context, -45 * M_PI / 180);
     
-    UIBezierPath* tipPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)];
+    UIBezierPath *tipPath = [UIBezierPath bezierPath];
+    [tipPath moveToPoint:CGPointMake( 0, 0)];
+    [tipPath addLineToPoint:CGPointMake(0, 11)];
+    [tipPath addLineToPoint:CGPointMake(11, 11)];
+    [tipPath addLineToPoint:CGPointMake( 0, 0)];
+    [tipPath closePath];
+    
     [_labelColor setFill];
     [tipPath fill];
-    
     CGContextRestoreGState(context);
     
     //// ViewBackground Drawing

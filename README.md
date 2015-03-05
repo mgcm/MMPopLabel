@@ -46,7 +46,7 @@ To show the label, just add this code to a button action or some other type of e
 }
 ```
 
-MMPopLabel now also supports UIBarButtonItem:
+MMPopLabel now also supports *UIBarButtonItem*:
 
 ```objective-c
 - (IBAction)showLabel:(id)sender
@@ -56,12 +56,22 @@ MMPopLabel now also supports UIBarButtonItem:
 }
 ```
 
-To receive the label events, just set your view controller as it's delegate and implement the MMPopLabelDelegate protocol:
+To receive the label events, just set your view controller as it's delegate and implement the *MMPopLabelDelegate* protocol:
 
 ```objective-c
 - (void)dismissedPopLabel:(MMPopLabel *)popLabel;
 - (void)didPressButtonForPopLabel:(MMPopLabel *)popLabel atIndex:(NSInteger)index;
 ```
+
+To disable animations, use of the following option when setting up your label:
+
+```objective-c
+_label = [MMPopLabel popLabelWithText:
+          @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." options:MMPopLabelAnimationOptionDontPop];
+```
+
+Check the *MMPopLabelAnimationOptions* enumeration for more options.
 
 ## Screenshots
 

@@ -18,8 +18,11 @@
 @interface MMViewController () <MMPopLabelDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *topButton;
-@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 @property (weak, nonatomic) IBOutlet UIButton *showPopupButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIButton *topLeftButton;
+@property (weak, nonatomic) IBOutlet UIButton *bottomLeftButton;
+@property (weak, nonatomic) IBOutlet UIButton *bottomRightButton;
 @property (nonatomic, retain) MMPopLabel *label;
 
 @end
@@ -72,9 +75,23 @@
 }
 
 
-- (IBAction)bottomPressed:(id)sender
-{
-    [_label popAtView:_bottomButton];
+- (IBAction)barButtonPressed:(id)sender {
+    [_label popAtBarButtonItem:_addBarButtonItem];
+}
+
+
+- (IBAction)bottomRightButtonPressed:(id)sender {
+    [_label popAtView:_bottomRightButton];
+}
+
+
+- (IBAction)bottomLeftButtonPressed:(id)sender {
+    [_label popAtView:_bottomLeftButton];
+}
+
+
+- (IBAction)topLeftButtonPressed:(id)sender {
+    [_label popAtView:_topLeftButton];
 }
 
 

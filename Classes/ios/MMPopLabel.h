@@ -21,6 +21,7 @@
 + (MMPopLabel *)popLabelWithText:(NSString *)text;
 - (void)addButton:(UIButton *)button;
 - (void)popAtView:(UIView *)view;
+- (void)popAtBarButtonItem:(UIBarButtonItem *)barButtonItem;
 - (void)dismiss;
 
 

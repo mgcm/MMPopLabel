@@ -35,6 +35,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CGPoint viewCenter;
 @property (nonatomic, assign) MMPopLabelArrowType arrowType;
 
+@property (nonatomic, assign) BOOL animateTargetView;
+@property (nonatomic, assign) BOOL animatePopLabel;
+
 @end
 
 
@@ -54,10 +57,32 @@ typedef enum : NSUInteger {
 }
 
 
++ (MMPopLabel *)popLabelWithText:(NSString *)text options:(MMPopLabelAnimationOptions)options
+{
+    MMPopLabel *popLabel = [MMPopLabel popLabelWithText:text];
+
+    if (options == MMPopLabelAnimationOptionPopViewAndLabel) {
+        popLabel.animateTargetView = YES;
+        popLabel.animatePopLabel = YES;
+    } else if (options == MMPopLabelAnimationOptionPopViewOnly) {
+        popLabel.animateTargetView = NO;
+        popLabel.animatePopLabel = YES;
+    } else {
+        popLabel.animateTargetView = NO;
+        popLabel.animatePopLabel = NO;
+    }
+
+    return popLabel;
+}
+
+
 - (id)initWithText:(NSString *)text
 {
     if (self = [super initWithFrame:CGRectZero])
     {
+        self.animateTargetView = YES;
+        self.animatePopLabel = YES;
+
         self.buttons = [@[] mutableCopy];
         
         self.backgroundColor = [UIColor clearColor];
@@ -214,26 +239,44 @@ typedef enum : NSUInteger {
     self.hidden = NO;
 
     [self setNeedsDisplay];
-    
-    self.transform = CGAffineTransformMakeScale(0, 0);
-    view.transform = CGAffineTransformMakeScale(0, 0);
+
+    if (self.animatePopLabel) {
+        self.transform = CGAffineTransformMakeScale(0, 0);
+    }
+    if (self.animateTargetView) {
+        view.transform = CGAffineTransformMakeScale(0, 0);
+    }
     [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
         self.center = centerPoint;
         self.alpha = 1.0f;
-        self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-        view.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        if (self.animatePopLabel) {
+            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        }
+        if (self.animateTargetView) {
+            view.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        }
     } completion:^(BOOL finished) {
-        [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-            self.transform = CGAffineTransformMakeScale(0.9, 0.9);
-            view.transform = CGAffineTransformMakeScale(0.9, 0.9);
-        } completion:^(BOOL finished) {
+        if (self.animateTargetView || self.animatePopLabel) {
             [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
-                self.transform = CGAffineTransformMakeScale(1, 1);
-                view.transform = CGAffineTransformMakeScale(1, 1);
+                if (self.animatePopLabel) {
+                    self.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                }
+                if (self.animateTargetView) {
+                    view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                }
             } completion:^(BOOL finished) {
-                // completion block empty?
+                [UIView animateKeyframesWithDuration:duration/6.0f delay:0 options:0 animations:^{
+                    if (self.animatePopLabel) {
+                        self.transform = CGAffineTransformMakeScale(1, 1);
+                    }
+                    if (self.animateTargetView) {
+                        view.transform = CGAffineTransformMakeScale(1, 1);
+                    }
+                } completion:^(BOOL finished) {
+                    // completion block empty?
+                }];
             }];
-        }];
+        }
     }];
 }
 

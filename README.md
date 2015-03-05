@@ -42,7 +42,17 @@ To show the label, just add this code to a button action or some other type of e
 - (IBAction)showLabel:(id)sender
 {
 	UIView *view = (UIView *)sender;
-    [_label popAtView:view];
+	[_label popAtView:view];
+}
+```
+
+MMPopLabel now also supports UIBarButtonItem:
+
+```objective-c
+- (IBAction)showLabel:(id)sender
+{
+	UIBarButtonItem *barButtonItem = (UIBarButtonItem *)sender;
+	[_label popAtBarButtonItem:barButtonItem];
 }
 ```
 

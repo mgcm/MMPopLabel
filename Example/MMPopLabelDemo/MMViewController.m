@@ -94,22 +94,11 @@
     NSLog(@"disappeared");
 }
 
+
 - (void)didPressButtonForPopLabel:(MMPopLabel *)popLabel atIndex:(NSInteger)index
 {
-    NSLog(@"pressed %i", index);
+    NSLog(@"pressed %li", (long)index);
 }
 
-/*
-- (void)didPressDismissForPopLabel:(MMPopLabel *)popLabel
-{
-    NSLog(@"dismiss");
-}
-
-
-- (void)didPressSkipForPopLabel:(MMPopLabel *)popLabel
-{
-    NSLog(@"skip");    
-}
-*/
 
 @end

@@ -1,10 +1,3 @@
-//
-//  MMPopLabel.h
-//  MMPopLabel
-//
-//  Created by Milton Moura on 05/01/14.
-//  Copyright (c) 2014 Milton Moura. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "MMPopLabelDelegate.h"

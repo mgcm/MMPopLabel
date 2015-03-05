@@ -1,10 +1,4 @@
-//
-//  MMPopLabel.m
-//  MMPopLabel
-//
-//  Created by Milton Moura on 05/01/14.
-//  Copyright (c) 2014 Milton Moura. All rights reserved.
-//
+
 
 #import "MMPopLabel.h"
 

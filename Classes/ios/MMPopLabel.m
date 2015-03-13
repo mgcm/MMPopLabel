@@ -202,8 +202,8 @@ typedef enum : NSUInteger {
     if (self.hidden == NO) return;
 
     CGPoint center = view.center;
-    if ([[view superview] superview] != self.window) {
-        center = [self.window convertPoint:view.center fromView:view];
+    if (view.superview != self.superview) {
+        center = [self.superview convertPoint:center fromView:view.superview];
     }
     self.center = center;
 

@@ -208,6 +208,17 @@ typedef enum : NSUInteger {
     [self setupAppearance];
 }
 
+//HORRIBLE HORRIBLE HACK !!!
+- (CGFloat)tabBarHeight
+{
+    UITabBar *tabBar;
+    UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        tabBar = [((UITabBarController *) rootVC) tabBar];
+    }
+    return tabBar != nil ? tabBar.frame.size.height : 0;
+}
+
 - (void)popAtView:(UIView *)view {
     [self popAtView:view animated:YES];
 }
@@ -231,7 +242,7 @@ typedef enum : NSUInteger {
     if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) {
         _arrowType = MMPopLabelBottomArrow;
         position = CGPointMake(position.x,
-                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding));
+                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding + /*HORRIBLE HACK !!!*/[self tabBarHeight]));
     }
 
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);

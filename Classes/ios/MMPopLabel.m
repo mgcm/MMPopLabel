@@ -318,19 +318,22 @@ typedef enum : NSUInteger {
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //// Tip Drawing
-    CGContextSaveGState(context);
-    if (_arrowType == MMPopLabelBottomArrow) {
-        CGContextTranslateCTM(context, _viewCenter.x, rect.size.height - kMMPopLabelTipPadding);
-    } else if (_arrowType == MMPopLabelTopArrow) {
-        CGContextTranslateCTM(context, _viewCenter.x, kMMPopLabelTipPadding);
-    }
-    CGContextRotateCTM(context, -45 * M_PI / 180);
-    
-    UIBezierPath* tipPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)];
     [_labelColor setFill];
-    [tipPath fill];
+
+    //// Tip Drawing
+    if (_arrowType != MMPopLabelNoArrow) {
+        CGContextSaveGState(context);
+        if (_arrowType == MMPopLabelBottomArrow) {
+            CGContextTranslateCTM(context, _viewCenter.x, rect.size.height - kMMPopLabelTipPadding);
+        } else if (_arrowType == MMPopLabelTopArrow) {
+            CGContextTranslateCTM(context, _viewCenter.x, kMMPopLabelTipPadding);
+        }
+        CGContextRotateCTM(context, -45 * M_PI / 180);
+    
+        [[UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)] fill];
+
+        CGContextRestoreGState(context);
+    }
     
     CGContextRestoreGState(context);
     
@@ -340,7 +343,6 @@ typedef enum : NSUInteger {
                                                                                           rect.size.width,
                                                                                           rect.size.height - kMMPopLabelTipPadding * 2)
                                                                   cornerRadius:kMMPopLabelCornerRadius];
-    [_labelColor setFill];
     [viewBackgroundPath fill];
 }
 

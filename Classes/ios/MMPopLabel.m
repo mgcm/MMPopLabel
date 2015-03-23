@@ -17,6 +17,7 @@ CGFloat const kMMPopLabelTipPadding = 8.0f;
 typedef enum : NSUInteger {
     MMPopLabelTopArrow,
     MMPopLabelBottomArrow,
+    MMPopLabelNoArrow
 } MMPopLabelArrowType;
 
 
@@ -227,7 +228,7 @@ typedef enum : NSUInteger {
         position = CGPointMake(position.x, center.y + self.frame.size.height / 2 + view.frame.size.height / 2 + kMMPopLabelViewPadding);
     }
 
-     CGPoint centerPoint = CGPointMake(position.x, position.y);
+    CGPoint centerPoint = CGPointMake(position.x, position.y);
     self.center = position;
 
     _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);
@@ -306,7 +307,9 @@ typedef enum : NSUInteger {
         self.alpha = 0.0f;
     } completion:^(BOOL finished) {
         self.hidden = YES;
-        [_delegate dismissedPopLabel:self];
+        if (_delegate && [_delegate respondsToSelector: @selector(dismissedPopLabel:)]){
+            [_delegate dismissedPopLabel:self];
+        }
     }];
 }
 
@@ -315,19 +318,22 @@ typedef enum : NSUInteger {
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //// Tip Drawing
-    CGContextSaveGState(context);
-    if (_arrowType == MMPopLabelBottomArrow) {
-        CGContextTranslateCTM(context, _viewCenter.x, rect.size.height - kMMPopLabelTipPadding);
-    } else if (_arrowType == MMPopLabelTopArrow) {
-        CGContextTranslateCTM(context, _viewCenter.x, kMMPopLabelTipPadding);
-    }
-    CGContextRotateCTM(context, -45 * M_PI / 180);
-    
-    UIBezierPath* tipPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)];
     [_labelColor setFill];
-    [tipPath fill];
+
+    //// Tip Drawing
+    if (_arrowType != MMPopLabelNoArrow) {
+        CGContextSaveGState(context);
+        if (_arrowType == MMPopLabelBottomArrow) {
+            CGContextTranslateCTM(context, _viewCenter.x, rect.size.height - kMMPopLabelTipPadding);
+        } else if (_arrowType == MMPopLabelTopArrow) {
+            CGContextTranslateCTM(context, _viewCenter.x, kMMPopLabelTipPadding);
+        }
+        CGContextRotateCTM(context, -45 * M_PI / 180);
+    
+        [[UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)] fill];
+
+        CGContextRestoreGState(context);
+    }
     
     CGContextRestoreGState(context);
     
@@ -337,7 +343,6 @@ typedef enum : NSUInteger {
                                                                                           rect.size.width,
                                                                                           rect.size.height - kMMPopLabelTipPadding * 2)
                                                                   cornerRadius:kMMPopLabelCornerRadius];
-    [_labelColor setFill];
     [viewBackgroundPath fill];
 }
 
@@ -350,7 +355,7 @@ typedef enum : NSUInteger {
 - (void)buttonPressed:(id)sender
 {
     UIButton *button = (UIButton *)sender;
-    if (_delegate != nil) {
+    if (_delegate && [_delegate respondsToSelector: @selector(didPressButtonForPopLabel:atIndex:)]) {
         [_delegate didPressButtonForPopLabel:self atIndex:button.tag];
     }
     [self dismiss];

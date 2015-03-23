@@ -228,7 +228,7 @@ typedef enum : NSUInteger {
         position = CGPointMake(position.x, center.y + self.frame.size.height / 2 + view.frame.size.height / 2 + kMMPopLabelViewPadding);
     }
 
-     CGPoint centerPoint = CGPointMake(position.x, position.y);
+    CGPoint centerPoint = CGPointMake(position.x, position.y);
     self.center = position;
 
     _viewCenter = CGPointMake(view.center.x - self.frame.origin.x - 8, view.center.y);

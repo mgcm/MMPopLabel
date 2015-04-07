@@ -250,7 +250,7 @@ typedef enum : NSUInteger {
         position = CGPointMake(view.center.x + diff, view.center.y + view.frame.size.height / 2);
     }
     
-    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) - [self navBarHeight] {
+    if (self.frame.origin.y + self.frame.size.height > ([UIScreen mainScreen].applicationFrame.size.height) - [self navBarHeight]) {
         
         _arrowType = MMPopLabelBottomArrow;
         position = CGPointMake(position.x,

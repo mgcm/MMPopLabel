@@ -180,11 +180,7 @@ typedef enum : NSUInteger {
                              self.bounds.origin.y + self.bounds.size.height - 44,
                              buttonWidth, 33);
 
-        if (_buttonFont) {
-            b.titleLabel.font = _buttonFont;
-        } else {
-            b.titleLabel.font = [UIFont systemFontOfSize:_tipSize];
-        }
+        b.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
 
         [b setTitleColor:_labelTextColor forState:UIControlStateNormal];
         [b setTitleColor:_labelTextHighlightColor forState:UIControlStateHighlighted];

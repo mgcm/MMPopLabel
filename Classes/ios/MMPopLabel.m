@@ -300,7 +300,7 @@ typedef enum : NSUInteger {
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self dismiss];
+ 
 }
 
 

@@ -219,6 +219,17 @@ typedef enum : NSUInteger {
     return tabBar != nil ? tabBar.frame.size.height : 0;
 }
 
+- (CGFloat)navBarHeight
+{
+    UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        UINavigationController *vc = ((UITabBarController*) rootVC).viewControllers[1];
+        return vc.navigationBar.frame.size.height;
+    }
+    return 44;
+}
+
+
 - (void)popAtView:(UIView *)view {
     [self popAtView:view animated:YES];
 }
@@ -239,10 +250,11 @@ typedef enum : NSUInteger {
         position = CGPointMake(view.center.x + diff, view.center.y + view.frame.size.height / 2);
     }
     
-    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) {
+    if (self.frame.origin.y + self.frame.size.height > [UIScreen mainScreen].applicationFrame.size.height) - [self navBarHeight] {
+        
         _arrowType = MMPopLabelBottomArrow;
         position = CGPointMake(position.x,
-                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding + /*HORRIBLE HACK !!!*/[self tabBarHeight]));
+                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding + /*HORRIBLE HACK !!!*/[self tabBarHeight] + [self navBarHeight]));
     }
 
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);

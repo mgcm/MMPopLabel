@@ -15,7 +15,7 @@
 
 
 CGFloat const kMMPopLabelSidePadding = 10.0f;
-CGFloat const kMMPopLabelViewPadding = 2.0f;
+CGFloat const kMMPopLabelViewPadding = 8.0f;
 CGFloat const kMMPopLabelCornerRadius = 6.0f;
 CGFloat const kMMPopLabelTipPadding = 8.0f;
 

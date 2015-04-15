@@ -281,6 +281,13 @@ typedef enum : NSUInteger {
 }
 
 
+- (void)popAtView:(UIView *)view withTimeout:(CGFloat)seconds
+{
+    [self popAtView:view];
+    [NSTimer scheduledTimerWithTimeInterval:seconds target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
+}
+
+
 - (void)popAtBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     UIView *view = [barButtonItem valueForKey:@"view"];

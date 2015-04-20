@@ -201,13 +201,6 @@ typedef enum : NSUInteger {
     [self.buttons addObject:button];
 }
 
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self setupAppearance];
-}
-
 //HORRIBLE HORRIBLE HACK !!!
 - (CGFloat)tabBarHeight
 {
@@ -238,6 +231,8 @@ typedef enum : NSUInteger {
 {
     if (self.hidden == NO) return;
 
+    [self setupAppearance];
+    
     _arrowType = MMPopLabelTopArrow;
 
     CGPoint position = CGPointMake(view.center.x, view.center.y + view.frame.size.height / 2 + kMMPopLabelViewPadding);

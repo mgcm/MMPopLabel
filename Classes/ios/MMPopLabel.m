@@ -53,16 +53,16 @@ typedef enum : NSUInteger {
 
 + (MMPopLabel *)popLabelWithAttributedString:(NSAttributedString *)attributedString {
     MMPopLabel *popLabel = [[MMPopLabel alloc] initWithAttributedString: attributedString];
-
-
+    
+    
     return popLabel;
-
+    
 }
 
 + (MMPopLabel *)popLabelWithText:(NSString *)text
 {
     MMPopLabel *popLabel = [[MMPopLabel alloc] initWithText:text];
-
+    
     return popLabel;
 }
 
@@ -70,22 +70,22 @@ typedef enum : NSUInteger {
     if (self = [super initWithFrame:CGRectZero])
     {
         self.buttons = [@[] mutableCopy];
-
+        
         self.backgroundColor = [UIColor clearColor];
         self.hidden = YES;
-
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             self.tipSize = 24;
         } else {
             self.tipSize = 12;
         }
-
+        
         self.label = [[MMLabel alloc] initWithFrame:CGRectZero];
         self.label.textAlignment = NSTextAlignmentCenter;
         self.label.attributedText = attributedString;
         self.label.backgroundColor = [UIColor clearColor];
         self.label.numberOfLines = 0;
-
+        
         [self addSubview:self.label];
     }
     return self;
@@ -99,13 +99,13 @@ typedef enum : NSUInteger {
         
         self.backgroundColor = [UIColor clearColor];
         self.hidden = YES;
-
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             self.tipSize = 24;
         } else {
             self.tipSize = 12;
         }
-
+        
         self.label = [[MMLabel alloc] initWithFrame:CGRectZero];
         self.label.textAlignment = NSTextAlignmentCenter;
         self.label.text = text;
@@ -139,11 +139,11 @@ typedef enum : NSUInteger {
     
     self.label.textColor = _labelTextColor;
     self.label.font = _labelFont;
-
+    
     /* resize label and view */
     CGFloat maxWidth = [UIScreen mainScreen].applicationFrame.size.width * 0.80f;
     CGFloat maxHeight = [UIScreen mainScreen].applicationFrame.size.height * 0.80f;
-
+    
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:self.label.text
                                                                          attributes:@{NSFontAttributeName:_labelFont}];
     CGRect rect = [attributedText boundingRectWithSize:(CGSize){maxWidth, CGFLOAT_MAX}
@@ -151,7 +151,7 @@ typedef enum : NSUInteger {
                                                context:nil];
     CGFloat minWidth = MAX(rect.size.width, 180);
     CGFloat minHeight = MIN(rect.size.height, maxHeight);
-
+    
     self.label.frame = CGRectMake(0, 0, minWidth, minHeight);
     [self.label sizeToFit];
     
@@ -163,7 +163,7 @@ typedef enum : NSUInteger {
     self.label.frame = CGRectMake(_targetFrame.origin.x,
                                   _targetFrame.origin.y,
                                   minWidth, _targetFrame.size.height + _tipSize * 4);
-
+    
     /* add buttons, if any */
     if (_buttons.count == 0) return;
     
@@ -171,7 +171,7 @@ typedef enum : NSUInteger {
                             self.frame.origin.y,
                             self.frame.size.width,
                             self.frame.size.height + 33);
-
+    
     NSInteger index = 0;
     NSInteger buttonWidth = self.frame.size.width / _buttons.count;
     for (UIButton *b in _buttons) {
@@ -179,13 +179,13 @@ typedef enum : NSUInteger {
         b.frame = CGRectMake(self.bounds.origin.x + (index * buttonWidth),
                              self.bounds.origin.y + self.bounds.size.height - 44,
                              buttonWidth, 33);
-
+        
         if (_buttonFont) {
             b.titleLabel.font = _buttonFont;
         } else {
             b.titleLabel.font = [UIFont systemFontOfSize:_tipSize];
         }
-
+        
         [b setTitleColor:_labelTextColor forState:UIControlStateNormal];
         [b setTitleColor:_labelTextHighlightColor forState:UIControlStateHighlighted];
         
@@ -201,27 +201,12 @@ typedef enum : NSUInteger {
     [self.buttons addObject:button];
 }
 
-//HORRIBLE HORRIBLE HACK !!!
-- (CGFloat)tabBarHeight
-{
-    UITabBar *tabBar;
-    UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    if ([rootVC isKindOfClass:[UITabBarController class]]) {
-        tabBar = [((UITabBarController *) rootVC) tabBar];
-    }
-    return tabBar != nil ? tabBar.frame.size.height : 0;
-}
 
-- (CGFloat)navBarHeight
+- (void)layoutSubviews
 {
-    UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    if ([rootVC isKindOfClass:[UITabBarController class]]) {
-        UINavigationController *vc = ((UITabBarController*) rootVC).viewControllers[1];
-        return vc.navigationBar.frame.size.height;
-    }
-    return 44;
+    [super layoutSubviews];
+    [self setupAppearance];
 }
-
 
 - (void)popAtView:(UIView *)view {
     [self popAtView:view animated:YES];
@@ -230,11 +215,9 @@ typedef enum : NSUInteger {
 - (void)popAtView:(UIView *)view animated: (BOOL) animated
 {
     if (self.hidden == NO) return;
-
-    [self setupAppearance];
     
     _arrowType = MMPopLabelTopArrow;
-
+    
     CGPoint position = CGPointMake(view.center.x, view.center.y + view.frame.size.height / 2 + kMMPopLabelViewPadding);
     self.center = position;
     if (position.x + (self.frame.size.width / 2) > [UIScreen mainScreen].applicationFrame.size.width) {
@@ -245,13 +228,13 @@ typedef enum : NSUInteger {
         position = CGPointMake(view.center.x + diff, view.center.y + view.frame.size.height / 2);
     }
     
-    if (self.frame.origin.y + self.frame.size.height > ([UIScreen mainScreen].applicationFrame.size.height) - [self navBarHeight]) {
+    if (self.frame.origin.y + self.frame.size.height > [[self superview] frame].size.height) {
         
         _arrowType = MMPopLabelBottomArrow;
         position = CGPointMake(position.x,
-                               [UIScreen mainScreen].applicationFrame.size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding + /*HORRIBLE HACK !!!*/[self tabBarHeight] + [self navBarHeight]));
+                               [[self superview] frame].size.height - (self.frame.size.height + view.frame.size.height + kMMPopLabelViewPadding));
     }
-
+    
     CGPoint centerPoint = CGPointMake(position.x, position.y + self.frame.size.height / 2);
     self.center = position;
     
@@ -267,7 +250,7 @@ typedef enum : NSUInteger {
     if (animated) {
         self.transform = CGAffineTransformMakeScale(0, 0);
         view.transform = CGAffineTransformMakeScale(0, 0);
-
+        
         [UIView animateKeyframesWithDuration:duration/6.0f delay:delay options:0 animations:^{
             self.center = centerPoint;
             self.alpha = 1.0f;
@@ -295,14 +278,14 @@ typedef enum : NSUInteger {
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
- 
+    
 }
 
 
 - (void)dismiss
 {
     if (self.hidden == YES) return;
-
+    
     [UIView animateWithDuration:0.15f animations:^{
         self.alpha = 0.0f;
     } completion:^(BOOL finished) {
@@ -333,7 +316,7 @@ typedef enum : NSUInteger {
     [tipPath addLineToPoint:CGPointMake( 0, 0)];
     [tipPath closePath];
     
-    [_labelColor setFill];
+    [[UIColor redColor] setFill];
     [tipPath fill];
     CGContextRestoreGState(context);
     

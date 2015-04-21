@@ -316,7 +316,7 @@ typedef enum : NSUInteger {
     [tipPath addLineToPoint:CGPointMake( 0, 0)];
     [tipPath closePath];
     
-    [[UIColor redColor] setFill];
+    [_labelColor setFill];
     [tipPath fill];
     CGContextRestoreGState(context);
     

@@ -117,6 +117,9 @@ typedef enum : NSUInteger {
     return self;
 }
 
+- (void)setText: (NSString *)text {
+    self.label.text = text;
+}
 
 - (void)setupAppearance
 {

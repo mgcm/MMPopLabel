@@ -36,6 +36,7 @@
 //will use animations by default
 - (void)popAtView:(UIView *)view;
 
+- (void)setText: (NSString *)text;
 
 - (void)dismiss;
 

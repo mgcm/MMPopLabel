@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *topLeftButton;
 @property (weak, nonatomic) IBOutlet UIButton *bottomLeftButton;
 @property (weak, nonatomic) IBOutlet UIButton *bottomRightButton;
+@property (weak, nonatomic) IBOutlet UIButton *timerButton;
+
 @property (nonatomic, retain) MMPopLabel *label;
 
 @end
@@ -92,6 +94,10 @@
 
 - (IBAction)topLeftButtonPressed:(id)sender {
     [_label popAtView:_topLeftButton];
+}
+
+- (IBAction)timerButtonPressed:(id)sender {
+    [_label popAtView:_timerButton withTimeout:2.0];
 }
 
 

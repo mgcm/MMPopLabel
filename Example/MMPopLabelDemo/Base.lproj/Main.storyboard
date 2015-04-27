@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -90,6 +90,16 @@
                                     <action selector="topPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9Hp-9X-esp"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGw-Cr-1lF">
+                                <rect key="frame" x="20" y="307" width="280" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nSE-G7-XVV"/>
+                                </constraints>
+                                <state key="normal" title="Show Timed Popup"/>
+                                <connections>
+                                    <action selector="timerButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="O8j-kA-vS7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -98,12 +108,15 @@
                             <constraint firstItem="moA-9g-du6" firstAttribute="top" secondItem="5yF-4i-oSQ" secondAttribute="bottom" id="FNK-1q-NU6"/>
                             <constraint firstItem="moA-9g-du6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="GHP-YX-Wuy"/>
                             <constraint firstAttribute="centerY" secondItem="J8p-GK-y4j" secondAttribute="centerY" id="GKx-qw-xA2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PGw-Cr-1lF" secondAttribute="trailing" constant="4" id="LP1-Bz-VdQ"/>
                             <constraint firstAttribute="trailing" secondItem="SNu-1e-B5c" secondAttribute="trailing" constant="16" id="UgB-IW-w8X"/>
                             <constraint firstAttribute="centerX" secondItem="J8p-GK-y4j" secondAttribute="centerX" id="X0S-Le-gwT"/>
                             <constraint firstAttribute="trailing" secondItem="KFi-bs-gwM" secondAttribute="trailing" id="XU1-tZ-9Pe"/>
                             <constraint firstItem="noO-fc-ps1" firstAttribute="top" secondItem="KFi-bs-gwM" secondAttribute="bottom" id="XZr-bZ-yU6"/>
+                            <constraint firstItem="PGw-Cr-1lF" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="4" id="bj1-Ys-UNH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J8p-GK-y4j" secondAttribute="trailing" constant="4" id="jn0-OF-Sk8"/>
                             <constraint firstItem="KFi-bs-gwM" firstAttribute="top" secondItem="SNu-1e-B5c" secondAttribute="bottom" constant="22" id="mEQ-u9-ZAB"/>
+                            <constraint firstItem="PGw-Cr-1lF" firstAttribute="top" secondItem="J8p-GK-y4j" secondAttribute="bottom" constant="8" id="pCg-PP-PSY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Mw-ez-W0I" secondAttribute="trailing" id="sAU-Po-xVz"/>
                             <constraint firstItem="KFi-bs-gwM" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="tx9-QI-ouV"/>
                             <constraint firstItem="3tW-P1-K0O" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="uH0-sv-zrS"/>
@@ -116,6 +129,7 @@
                         <outlet property="bottomLeftButton" destination="3tW-P1-K0O" id="90p-s7-0E8"/>
                         <outlet property="bottomRightButton" destination="SNu-1e-B5c" id="0DP-2k-fTS"/>
                         <outlet property="showPopupButton" destination="J8p-GK-y4j" id="XZB-fn-kDc"/>
+                        <outlet property="timerButton" destination="PGw-Cr-1lF" id="6gu-P5-F5n"/>
                         <outlet property="topButton" destination="2Mw-ez-W0I" id="f4d-6U-Soa"/>
                         <outlet property="topLeftButton" destination="moA-9g-du6" id="Ctz-oK-OEX"/>
                     </connections>

@@ -61,6 +61,7 @@ To receive the label events, just set your view controller as it's delegate and 
 ```objective-c
 - (void)dismissedPopLabel:(MMPopLabel *)popLabel;
 - (void)didPressButtonForPopLabel:(MMPopLabel *)popLabel atIndex:(NSInteger)index;
+- (BOOL)shouldDismissPopLabelOnTouch:(MMPopLabel *)popLabel;
 ```
 
 To disable animations, use of the following option when setting up your label:

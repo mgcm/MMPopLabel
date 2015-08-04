@@ -294,6 +294,9 @@ typedef enum : NSUInteger {
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if ([self.delegate respondsToSelector:@selector(shouldDismissPopLabelOnTouch:)] && ![self.delegate shouldDismissPopLabelOnTouch:self]) {
+        return;
+    }
     [self dismiss];
 }
 

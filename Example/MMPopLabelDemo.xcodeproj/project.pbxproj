@@ -20,7 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		411C275B680C4F7B88639510 /* Pods-MMPopLabelDemo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MMPopLabelDemo.xcconfig"; path = "Pods/Pods-MMPopLabelDemo.xcconfig"; sourceTree = "<group>"; };
+		12278B84F83D98EF1AB5B97D /* Pods-MMPopLabelDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MMPopLabelDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MMPopLabelDemo/Pods-MMPopLabelDemo.release.xcconfig"; sourceTree = "<group>"; };
+		41A71AA004C3C2B44A26839F /* Pods-MMPopLabelDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MMPopLabelDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MMPopLabelDemo/Pods-MMPopLabelDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C2B0691519349D01006A9EBF /* MMPopLabelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMPopLabelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B0691819349D01006A9EBF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2B0691A19349D01006A9EBF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -54,13 +55,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		974449C71EB331B549AC7B94 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				41A71AA004C3C2B44A26839F /* Pods-MMPopLabelDemo.debug.xcconfig */,
+				12278B84F83D98EF1AB5B97D /* Pods-MMPopLabelDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C2B0690C19349D01006A9EBF = {
 			isa = PBXGroup;
 			children = (
 				C2B0691E19349D01006A9EBF /* MMPopLabelDemo */,
 				C2B0691719349D01006A9EBF /* Frameworks */,
 				C2B0691619349D01006A9EBF /* Products */,
-				411C275B680C4F7B88639510 /* Pods-MMPopLabelDemo.xcconfig */,
+				974449C71EB331B549AC7B94 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,7 +210,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-MMPopLabelDemo-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MMPopLabelDemo/Pods-MMPopLabelDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -310,7 +320,7 @@
 		};
 		C2B0694819349D01006A9EBF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 411C275B680C4F7B88639510 /* Pods-MMPopLabelDemo.xcconfig */;
+			baseConfigurationReference = 41A71AA004C3C2B44A26839F /* Pods-MMPopLabelDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -324,7 +334,7 @@
 		};
 		C2B0694919349D01006A9EBF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 411C275B680C4F7B88639510 /* Pods-MMPopLabelDemo.xcconfig */;
+			baseConfigurationReference = 12278B84F83D98EF1AB5B97D /* Pods-MMPopLabelDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

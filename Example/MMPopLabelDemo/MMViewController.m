@@ -62,7 +62,6 @@
     [self.view addSubview:_label];
 }
 
-
 - (IBAction)showLabel:(id)sender
 {
     [_label popAtView:_showPopupButton];
@@ -117,5 +116,9 @@
     NSLog(@"pressed %li", (long)index);
 }
 
+- (BOOL)shouldDismissPopLabelOnTouch:(MMPopLabel *)popLabel {
+    // optional delegate method, default is yes
+    return NO;
+}
 
 @end

@@ -81,7 +81,7 @@ Check the *MMPopLabelAnimationOptions* enumeration for more options.
 
 ## Requirements
 
-* iOS 7.0+ and XCode 5.1+
+* iOS 7.0+ and Xcode 5.1+
 
 ## Installation
 

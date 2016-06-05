@@ -84,7 +84,7 @@ typedef enum : NSUInteger {
         self.animatePopLabel = YES;
 
         self.buttons = [@[] mutableCopy];
-        
+
         self.backgroundColor = [UIColor clearColor];
         self.hidden = YES;
 
@@ -99,7 +99,7 @@ typedef enum : NSUInteger {
         self.label.text = text;
         self.label.backgroundColor = [UIColor clearColor];
         self.label.numberOfLines = 0;
-        
+
         [self addSubview:self.label];
     }
     return self;
@@ -112,19 +112,19 @@ typedef enum : NSUInteger {
     if (!_labelColor) {
         _labelColor = [UIColor blackColor];
     }
-    
+
     if (!_labelTextColor) {
         _labelTextColor = [UIColor whiteColor];
     }
-    
+
     if (!_labelTextHighlightColor) {
         _labelTextHighlightColor = [UIColor whiteColor];
     }
-    
+
     if (!_labelFont) {
         _labelFont = [UIFont systemFontOfSize:_tipSize];
     }
-    
+
     self.label.textColor = _labelTextColor;
     self.label.font = _labelFont;
 
@@ -142,7 +142,7 @@ typedef enum : NSUInteger {
 
     self.label.frame = CGRectMake(0, 0, minWidth, minHeight);
     [self.label sizeToFit];
-    
+
     self.targetFrame = self.label.frame;
     self.frame = CGRectMake(_targetFrame.origin.x,
                             _targetFrame.origin.y,
@@ -154,7 +154,7 @@ typedef enum : NSUInteger {
 
     /* add buttons, if any */
     if (_buttons.count == 0) return;
-    
+
     self.frame = CGRectMake(self.frame.origin.x,
                             self.frame.origin.y,
                             self.frame.size.width,
@@ -176,7 +176,7 @@ typedef enum : NSUInteger {
 
         [b setTitleColor:_labelTextColor forState:UIControlStateNormal];
         [b setTitleColor:_labelTextHighlightColor forState:UIControlStateHighlighted];
-        
+
         [b addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:b];
         index ++;
@@ -196,8 +196,12 @@ typedef enum : NSUInteger {
     [self setupAppearance];
 }
 
-
 - (void)popAtView:(UIView *)view
+{
+    [self popAtView:view forcePosition:false];
+}
+
+- (void)popAtView:(UIView *)view forcePosition:(BOOL)upSide
 {
     if (self.hidden == NO) return;
 
@@ -219,7 +223,9 @@ typedef enum : NSUInteger {
         position = CGPointMake(center.x + diff, center.y + view.frame.size.height / 2);
     }
 
-    if (self.frame.origin.y + self.frame.size.height + (self.buttons.count > 0 ? 44 : 0) > [UIScreen mainScreen].applicationFrame.size.height) {
+    if (self.frame.origin.y + self.frame.size.height + (self.buttons.count > 0 ? 44 : 0) > [UIScreen mainScreen].applicationFrame.size.height
+    ||  upSide
+    ) {
         _arrowType = MMPopLabelBottomArrow;
         position = CGPointMake(position.x,
                                (self.frame.origin.y - view.frame.size.height / 2 - kMMPopLabelViewPadding));
@@ -315,7 +321,7 @@ typedef enum : NSUInteger {
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
+
     //// Tip Drawing
     CGContextSaveGState(context);
     if (_arrowType == MMPopLabelBottomArrow) {
@@ -324,13 +330,13 @@ typedef enum : NSUInteger {
         CGContextTranslateCTM(context, _viewCenter.x, kMMPopLabelTipPadding);
     }
     CGContextRotateCTM(context, -45 * M_PI / 180);
-    
+
     UIBezierPath* tipPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 11, 11)];
     [_labelColor setFill];
     [tipPath fill];
-    
+
     CGContextRestoreGState(context);
-    
+
     //// ViewBackground Drawing
     UIBezierPath* viewBackgroundPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(rect.origin.x,
                                                                                           rect.origin.y + kMMPopLabelTipPadding,
